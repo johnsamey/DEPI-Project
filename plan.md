@@ -1,3 +1,4 @@
+our plane is:
 1. jenkins on an ec2 instance
 2. configure docker & ansible agents in jenkins
     2.1. docker agent is used to build the image then run tests then push it to an image registry
