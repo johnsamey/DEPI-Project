@@ -1,2 +1,82 @@
 ---
 # tasks file for ./roles/jenkins/
+- name: Update the system
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+
+- name: Install prerequisites for Docker
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: present
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Update apt cache after adding Docker repo
+  apt:
+    update_cache: true
+
+- name: Install Docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Install Docker Compose
+  apt:
+    name: docker-compose
+    state: present
+
+- name: Ensure Docker is started and enabled
+  systemd:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Pull Jenkins Docker image
+  docker_image:
+    name: jenkins/jenkins
+    tag: lts
+    source: pull
+
+- name: Create Jenkins Docker container
+  docker_container:
+    name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /var/jenkins_home:/var/jenkins_home
+    state: started
+    restart_policy: always
+
+- name: Open firewall for Jenkins port (8080)
+  ufw:
+    rule: allow
+    port: 8080
+    proto: tcp
+    state: present
+
+# Execute the command to install Docker Compose inside the Jenkins container
+- name: Install Docker Compose inside Jenkins container
+  command: |
+    docker exec jenkins bash -c 'curl -L "https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'
+  become: yes
