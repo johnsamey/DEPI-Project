@@ -1,5 +1,5 @@
 
-# 🚀 Project 1: Automated Deployment Pipeline with Jenkins and Docker
+# 🚀 Project: Automated Deployment Pipeline with Jenkins and Docker
 
 ## Objective
 Implement an automated CI/CD pipeline using Jenkins, Docker, and Ansible.
