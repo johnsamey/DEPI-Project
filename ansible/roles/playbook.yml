@@ -1,0 +1,14 @@
+---
+- name: install jenkins
+  hosts: jenkins-agent
+  user: ubuntu
+  become: true
+  roles:
+    - jenkins
+  
+- name: install docker
+  hosts: docker-agent
+  become: true
+  user: ubuntu  
+  roles:
+    - docker
