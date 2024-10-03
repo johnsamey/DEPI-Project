@@ -45,3 +45,24 @@
     name: docker
     enabled: true
     state: started
+  
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+- name: Pull Docker image from Docker Hub
+  docker_image:
+    name: "{{ DOCKER_IMAGE_NAME }}"
+    tag: "{{ DOCKER_IMAGE_TAG }}"
+    source: pull
+    force_source: yes
+
+- name: Run Docker container
+  docker_container:
+    name: app_container
+    image: "{{ DOCKER_IMAGE_NAME }}:{{ DOCKER_IMAGE_TAG }}"
+    state: started
+    ports:
+      - "80:80"
