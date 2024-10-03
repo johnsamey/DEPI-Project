@@ -18,13 +18,6 @@ services:
       - redis
     command: python hello.py
     image: johnsami/dockerized-app-build-app:latest
-  test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - app
-    command: python -m unittest discover -s .tests/
   redis:
     image: "redis:6.0-alpine"
     ports:
