@@ -1,0 +1,14 @@
+---
+- name: Install Jenkins
+  hosts: ec2-jenkins
+  user: ubuntu
+  become: true
+  roles:
+    - jenkins
+  
+- name: Install Docker
+  hosts: ec2-docker
+  user: ubuntu  
+  become: true  
+  roles:
+    - docker
