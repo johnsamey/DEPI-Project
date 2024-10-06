@@ -1,4 +1,4 @@
-- name: Deploying_app
+- name: Deplyment
   hosts: Docker
   user: ubuntu
   become: true
