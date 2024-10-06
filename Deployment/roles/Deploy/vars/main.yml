@@ -1,0 +1,6 @@
+---
+# vars file for ./roles/Deploy
+docker_image: "johnsami/dockerized-app-build-app"
+compose_dir: "/"
+ENV_VAR: DEPLOY
+service_name: app

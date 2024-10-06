@@ -1,0 +1,27 @@
+---
+# tasks file for ./roles/Deploy
+- name: Check if container is running from the image
+  shell: "docker ps --filter 'ancestor={{ docker_image }}' "
+  register: running_container
+  changed_when: false
+
+- name: Remove the running container if it exists
+  shell: "docker rm -f {{ running_container.stdout }}"
+  when: running_container.stdout != ""
+  register: removed_container
+  changed_when: removed_container.stdout != ""
+
+- name: Render Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /docker-compose.yml
+
+- name: Run docker-compose up handler
+  community.docker.docker_compose:
+    project_src: /  
+    build: true 
+  register: new_container
+
+- name: Output the result of the new container run
+  debug:
+    var: new_container
