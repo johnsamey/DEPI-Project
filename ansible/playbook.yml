@@ -6,9 +6,10 @@
   roles:
     - jenkins
   
-- name: Install Docker
+- name: Install Docker and Ansible
   hosts: ec2-docker
   user: ubuntu  
   become: true  
   roles:
     - docker
+    - ansible
