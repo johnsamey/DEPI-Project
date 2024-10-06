@@ -9,9 +9,7 @@
 - name: Install Docker and Ansible
   hosts: Docker
   user: ubuntu  
-  become: true
-  vars_files:
-    - ./docker/variables/main.yml  
+  become: true 
   roles:
     - docker
     - ansible
