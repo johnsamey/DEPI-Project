@@ -1,0 +1,6 @@
+- name: Deploying_app
+  hosts: Docker
+  user: ubuntu
+  become: true
+  roles:
+    - Deploy
