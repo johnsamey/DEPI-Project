@@ -64,11 +64,9 @@
     volumes:
       - /var/jenkins_home:/var/jenkins_home
     state: started
-    restart_policy: always
 
 - name: Open firewall for Jenkins port (8080)
   ufw:
     rule: allow
     port: 8080
     proto: tcp
-    state: present
