@@ -1,0 +1,24 @@
+---
+# tasks file for ./roles/ansible
+- name: Update apt cache
+  apt:
+    update_cache: true
+
+- name: Install Ansible
+  apt:
+    name: ansible
+    state: present
+    update_cache: true  # Ensure the cache is updated before installation
+
+- name: Create /etc/ansible directory if it doesn't exist
+  file:
+    path: /etc/ansible
+    state: directory
+    mode: '0755'
+
+- name: Create Ansible inventory file from template
+  template:
+    src: ../templates/inventory.j2
+    dest: /etc/ansible/hosts
+    mode: '0644'  # Set appropriate permissions for the inventory file
+  notify: Restart Ansible Service  # Notify handlers to restart service if needed

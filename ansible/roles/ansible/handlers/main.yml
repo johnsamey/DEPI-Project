@@ -1,0 +1,5 @@
+---
+- name: Restart Ansible Service
+  service:
+    name: ansible  # Replace with the correct service name if needed
+    state: restarted
