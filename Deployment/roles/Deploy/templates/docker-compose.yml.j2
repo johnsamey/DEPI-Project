@@ -3,7 +3,12 @@ services:
     container_name: app-container
     image: {{  docker_image }}
     environment:
-      ENVIRONMENT: {{ENV_VAR}}
+      - ENVIRONMENT=DEV
+      - HOST=0.0.0.0
+      - PORT=8000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
     ports:
       - "8000:8000"
     depends_on:
