@@ -16,11 +16,20 @@ services:
       - "8000:8000"
     depends_on:
       - redis
+    networks:
+      - app-network
     command: python hello.py
     container_name: app-container
     image: johnsami/dockerized-app-build-app:latest
+
   redis:
     image: "redis:6.0-alpine"
     ports:
       - "6379:6379"
+    networks:
+      - app-network
     container_name: redis-container
+
+networks:
+  app-network:
+    driver: bridge
