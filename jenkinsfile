@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent docker
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-Hub-credentials')
@@ -78,7 +78,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'echo "Deploying the application..."'
+                script {
+                    sh ''' 
+                    cd $WORKSPACE
+                    ansible-playbook playbook.yml -i ./inventory.ini --private-key ./private_key.pem --ssh-extra-args '-o StrictHostKeyChecking=no'
+                    '''
+                }
             }
         }
     }

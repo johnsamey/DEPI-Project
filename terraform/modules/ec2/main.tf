@@ -11,20 +11,25 @@ resource "aws_instance" "public_ec2"{
         Name = "${var.ec2_Name[count.index]}",
         created-by="john"
     }
-     provisioner "local-exec" {
-    command = <<EOT
-    instance_name="${var.ec2_Name[count.index]}"
-    instance_ip="${self.public_ip}"
+#     provisioner "local-exec" {
+#     command = <<EOT
+#     instance_name="${var.ec2_Name[count.index]}"
+#     instance_ip="${self.public_ip}"
 
-    if [ "$instance_name" = "Docker" ]; then
-      echo "[Docker]
-      $instance_ip" >> inventory.ini
-    elif [ "$instance_name" = "Jenkins" ]; then
-      echo "[Jenkins]
-      $instance_ip" >> inventory.ini
-    fi
-    EOT
-  }
+#     if [ "$instance_name" = "Docker" ]; then
+#       echo "[Docker]
+# $instance_ip" >> inventory.ini
+#     elif [ "$instance_name" = "Jenkins" ]; then
+#       echo "[Jenkins]
+# $instance_ip" >> inventory.ini
+#     fi
+#     EOT
+#   }
+}
+
+resource "local_file" "inventory_file" {
+  content  = "[Docker]\n${aws_instance.public_ec2[0].public_ip}\n[Jenkins]\n${aws_instance.public_ec2[1].public_ip}"
+  filename = "${path.cwd}/inventory.ini"
 }
 
 resource "aws_security_group" "public_security-group" {

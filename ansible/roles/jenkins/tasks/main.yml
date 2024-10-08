@@ -54,6 +54,14 @@
     tag: lts
     source: pull
 
+- name: Ensure Jenkins home directory exists on the host
+  file:
+    path: /var/jenkins_home
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: '0755'
+
 - name: Create Jenkins Docker container
   docker_container:
     name: jenkins
@@ -64,7 +72,49 @@
     volumes:
       - /var/jenkins_home:/var/jenkins_home
     state: started
+  register: jenkins_container
 
+# - name: Run Jenkins container
+#   command: docker run -d -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+#   when: jenkins_container.changed
+
+# - name: Wait for Docker container to be running
+#   wait_for:
+#     timeout: 30             # Total timeout for waiting
+#     delay: 10                # Initial delay before the first check
+#     state: started           # Wait until the container is started
+#     port: 8080                 # Adjust the port to match your application
+#   when: jenkins_container.changed  # Proceed only if the container was changed/started
+
+- name: Update apt cache inside Jenkins container
+  command: docker exec --user root jenkins apt-get update
+
+- name: Install Ansible inside Jenkins container
+  command: docker exec --user root jenkins apt-get install ansible -y
+
+- name: Ensure the destination directory exists
+  file:
+    path: "/var/jenkins_home/workspace/Dockerized-App-Build-pipeline"
+    state: directory
+    mode: '0755'
+
+- name: Copy inventory file
+  copy:
+    src: inventory.ini
+    dest: "/var/jenkins_home/workspace/Dockerized-App-Build-pipeline/inventory.ini"
+
+- name: Copy private_key file 
+  copy:
+    src: private_key.pem
+    dest: "/var/jenkins_home/workspace/Dockerized-App-Build-pipeline/private_key.pem"
+
+- name: Copy playbook files
+  copy:
+    src: /Deployment/
+    dest: "/var/jenkins_home/workspace/Dockerized-App-Build-pipeline/Deployment/"
+    remote_src: no
+    directory_mode: '0755'
+  
 - name: Open firewall for Jenkins port (8080)
   ufw:
     rule: allow

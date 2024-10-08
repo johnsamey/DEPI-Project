@@ -1,15 +1,14 @@
 ---
-# - name: Install Jenkins
-#   hosts: Jenkins
-#   user: ubuntu
-#   become: true
-#   roles:
-#     - jenkins
+- name: Install Jenkins and Ansible
+  hosts: Jenkins
+  user: ubuntu
+  become: true
+  roles:
+    - jenkins
   
-- name: Install Docker and Ansible
+- name: Install Docker
   hosts: Docker
   user: ubuntu  
   become: true 
   roles:
     - docker
-    - ansible

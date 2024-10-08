@@ -4,3 +4,7 @@ terraform/.terraform
 
 ansible/private_key.pem
 ansible/roles/docker/variables/
+terraform/inventory.ini
+terraform/private_key.pem
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
