@@ -16,9 +16,9 @@
     state: directory
     mode: '0755'
 
-- name: Create Ansible inventory file from template
-  template:
-    src: ../templates/inventory.j2
-    dest: /etc/ansible/hosts
-    mode: '0644'  # Set appropriate permissions for the inventory file
-  notify: Restart Ansible Service  # Notify handlers to restart service if needed
+# - name: Create Ansible inventory file from template
+#   template:
+#     src: ../templates/inventory.j2
+#     dest: /etc/ansible/hosts
+#     mode: '0644'  # Set appropriate permissions for the inventory file
+#   notify: Restart Ansible Service  # Notify handlers to restart service if needed

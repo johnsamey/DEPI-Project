@@ -1,6 +1,6 @@
 .vscode/*
 
-terraform/
+terraform/.terraform
 
 ansible/private_key.pem
 ansible/roles/docker/variables/
