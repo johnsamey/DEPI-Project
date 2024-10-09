@@ -47,6 +47,22 @@
     port: 8080
     proto: tcp
 
+- name: Add user to Docker group
+  ansible.builtin.user:
+    name: jenkins
+    groups: docker
+    append: yes
+
+- name: Restart Docker to apply group changes
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+
+- name: Restart Jenkins to apply group changes
+  ansible.builtin.systemd:
+    name: jenkins
+    state: restarted
+
 - name: Ensure the destination directory exists
   file:
     path: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline"
@@ -65,7 +81,7 @@
 
 - name: Copy playbook files
   copy:
-    src: /Deployment/
+    src: Deployment/
     dest: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/Deployment/"
     remote_src: no
     directory_mode: '0755'
