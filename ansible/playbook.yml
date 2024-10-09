@@ -4,6 +4,7 @@
   user: ubuntu
   become: true
   roles:
+    - docker
     - jenkins
     - ansible
   
