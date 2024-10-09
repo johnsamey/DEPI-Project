@@ -46,7 +46,7 @@ pipeline {
                 script {
                     sh '''
                     cd $WORKSPACE
-                    docker-compose build
+                    docker compose build
                     docker tag $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
                     '''
                 }
@@ -58,7 +58,7 @@ pipeline {
                 script{
                     sh '''
                     cd $WORKSPACE
-                    docker-compose run --rm app python tests/test.py
+                    docker compose run --rm app python tests/test.py
                     '''
                 }
             }
@@ -70,7 +70,7 @@ pipeline {
                     sh '''
                     cd $WORKSPACE
                     echo "$DOCKER_HUB_CREDENTIALS_PSW" | docker login -u "$DOCKER_HUB_CREDENTIALS_USR" --password-stdin
-                    docker-compose push
+                    docker compose push
                     '''
                 }
             }
