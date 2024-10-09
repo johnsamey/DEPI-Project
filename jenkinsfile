@@ -1,5 +1,5 @@
 pipeline {
-    agent docker
+    agent any
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-Hub-credentials')
@@ -80,8 +80,8 @@ pipeline {
             steps {
                 script {
                     sh ''' 
-                    cd $WORKSPACE
-                    ansible-playbook playbook.yml -i ./inventory.ini --private-key ./private_key.pem --ssh-extra-args '-o StrictHostKeyChecking=no'
+                    cd $WORKSPACE/Deployment
+                    ansible-playbook playbook.yml -i ../inventory.ini --private-key ../private_key.pem --ssh-extra-args '-o StrictHostKeyChecking=no'
                     '''
                 }
             }
