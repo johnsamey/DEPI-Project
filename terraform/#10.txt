@@ -1,0 +1,384 @@
+Started by user john samy
+Checking out git https://github.com/johnsamey/DEPI-Project.git into /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline@script/ce7ef59b3a2b7448e7f84708d4573c27315e300d52955224953d4f2d0dc2f36d to read jenkinsfile
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline@script/ce7ef59b3a2b7448e7f84708d4573c27315e300d52955224953d4f2d0dc2f36d/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/johnsamey/DEPI-Project.git # timeout=10
+Fetching upstream changes from https://github.com/johnsamey/DEPI-Project.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/johnsamey/DEPI-Project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/week-3^{commit} # timeout=10
+Checking out Revision c681b55cc4265127e383cc76b43fc7670af1a22b (refs/remotes/origin/week-3)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c681b55cc4265127e383cc76b43fc7670af1a22b # timeout=10
+Commit message: "pls work"
+First time build. Skipping changelog.
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/johnsamey/DEPI-Project.git # timeout=10
+Fetching upstream changes from https://github.com/johnsamey/DEPI-Project.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/johnsamey/DEPI-Project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/week-3^{commit} # timeout=10
+Checking out Revision c681b55cc4265127e383cc76b43fc7670af1a22b (refs/remotes/origin/week-3)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c681b55cc4265127e383cc76b43fc7670af1a22b # timeout=10
+Commit message: "pls work"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_HUB_CREDENTIALS or $DOCKER_HUB_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Cleanup)
+[Pipeline] deleteDir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository https://github.com/johnsamey/DEPI-Project.git
+ > git init /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline # timeout=10
+Fetching upstream changes from https://github.com/johnsamey/DEPI-Project.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+using GIT_ASKPASS to set credentials github-token
+ > git fetch --tags --force --progress -- https://github.com/johnsamey/DEPI-Project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/johnsamey/DEPI-Project.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 29e325afddf54ece37141aee3cd366c7e8df0b69 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 29e325afddf54ece37141aee3cd366c7e8df0b69 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 29e325afddf54ece37141aee3cd366c7e8df0b69 # timeout=10
+Commit message: "Update"
+ > git rev-list --no-walk 29e325afddf54ece37141aee3cd366c7e8df0b69 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Prepare Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
++ docker images -q johnsami/dockerized-app-build-app:latest
++ IMAGE_EXISTS=746a3f37d14a
++ [ -n 746a3f37d14a ]
++ echo Docker image exists. Deleting existing image...
+Docker image exists. Deleting existing image...
++ docker rmi johnsami/dockerized-app-build-app:latest
+Untagged: johnsami/dockerized-app-build-app:latest
+Untagged: johnsami/dockerized-app-build-app@sha256:8391e56e0be177697f91bb1a87c78d8c77c08e2c1c2a5b1990fae187459f0002
+Deleted: sha256:746a3f37d14af22db36d8a11fc8106cd89737f0a05eb18488b670b3a2458f25b
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
++ docker compose build
+time="2024-10-09T19:23:29Z" level=warning msg="/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+#0 building with "default" instance using docker driver
+
+#1 [app internal] load build definition from Dockerfile
+#1 transferring dockerfile: 626B 0.0s done
+#1 DONE 0.0s
+
+#2 [app auth] library/python:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [app internal] load metadata for docker.io/library/python:3.9-slim
+#3 DONE 0.2s
+
+#4 [app internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [app 1/5] FROM docker.io/library/python:3.9-slim@sha256:49f94609e5a997dc16086a66ac9664591854031d48e375945a9dbf4d1d53abbc
+#5 DONE 0.0s
+
+#6 [app internal] load build context
+#6 transferring context: 302.28kB 0.0s done
+#6 DONE 0.1s
+
+#7 [app 2/5] WORKDIR /usr/src/app
+#7 CACHED
+
+#8 [app 3/5] COPY . .
+#8 DONE 0.1s
+
+#9 [app 4/5] COPY requirements.txt ./
+#9 DONE 0.1s
+
+#10 [app 5/5] RUN pip install --no-cache-dir -r requirements.txt
+#10 3.146 Collecting redis==3.0.1
+#10 3.182   Downloading redis-3.0.1-py2.py3-none-any.whl (61 kB)
+#10 3.192      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.8/61.8 kB 7.8 MB/s eta 0:00:00
+#10 3.262 Collecting tornado==5.1.1
+#10 3.267   Downloading tornado-5.1.1.tar.gz (516 kB)
+#10 3.292      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 516.8/516.8 kB 22.9 MB/s eta 0:00:00
+#10 3.351   Preparing metadata (setup.py): started
+#10 3.792   Preparing metadata (setup.py): finished with status 'done'
+#10 3.803 Building wheels for collected packages: tornado
+#10 3.804   Building wheel for tornado (setup.py): started
+#10 4.356   Building wheel for tornado (setup.py): finished with status 'done'
+#10 4.358   Created wheel for tornado: filename=tornado-5.1.1-cp39-cp39-linux_x86_64.whl size=449850 sha256=d9f30ce4e1ec7bcff93c03ce3e3558aaa2c9d2fb52300bd299a2e0d4aeecc4be
+#10 4.359   Stored in directory: /tmp/pip-ephem-wheel-cache-bqpio7q6/wheels/20/20/11/70017aae7d3ffd16c4bd2d201de37570d178c9e3904286152c
+#10 4.362 Successfully built tornado
+#10 4.388 Installing collected packages: tornado, redis
+#10 4.716 Successfully installed redis-3.0.1 tornado-5.1.1
+#10 4.717 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#10 4.810 
+#10 4.810 [notice] A new release of pip is available: 23.0.1 -> 24.2
+#10 4.810 [notice] To update, run: pip install --upgrade pip
+#10 DONE 5.1s
+
+#11 [app] exporting to image
+#11 exporting layers
+#11 exporting layers 0.3s done
+#11 writing image sha256:c5bc464c481d050ef73ef0d00c51c29a90f9df44e10597580c28bc4094d67271
+#11 writing image sha256:c5bc464c481d050ef73ef0d00c51c29a90f9df44e10597580c28bc4094d67271 done
+#11 naming to docker.io/johnsami/dockerized-app-build-app:latest 0.0s done
+#11 DONE 0.3s
+
+#12 [app] resolving provenance for metadata file
+#12 DONE 0.0s
++ docker tag johnsami/dockerized-app-build-app johnsami/dockerized-app-build-app:latest
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
++ docker compose run --rm app python tests/test.py
+time="2024-10-09T19:23:36Z" level=warning msg="/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container redis-container  Created
+ Container redis-container  Starting
+ Container redis-container  Started
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to Docker-Hub)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
++ echo ****
++ docker login -u johnsami --password-stdin
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Login Succeeded
++ docker compose push
+time="2024-10-09T19:23:39Z" level=warning msg="/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ redis Skipped 
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: 5382e3241753 Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: 1b86f42fa7cd Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: a8e6c800c900 Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: 9e599118e168 Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: e228adf1886f Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: fb5ccd0db472 Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: 8d853c8add5d Preparing 
+ Pushing johnsami/dockerized-app-build-app:latest: e228adf1886f Waiting 
+ Pushing johnsami/dockerized-app-build-app:latest: fb5ccd0db472 Waiting 
+ Pushing johnsami/dockerized-app-build-app:latest: 8d853c8add5d Waiting 
+ Pushing johnsami/dockerized-app-build-app:latest: 9e599118e168 Layer already exists 
+ Pushing johnsami/dockerized-app-build-app:latest: a8e6c800c900 Layer already exists 
+ Pushing johnsami/dockerized-app-build-app:latest: 5382e3241753 Pushing [==================================================>]     512B
+ Pushing johnsami/dockerized-app-build-app:latest: 1b86f42fa7cd Pushing [>                                                  ]  3.072kB/298.9kB
+ Pushing johnsami/dockerized-app-build-app:latest: 5382e3241753 Pushing [==================================================>]  3.584kB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [>                                                  ]  135.7kB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 1b86f42fa7cd Pushing [========>                                          ]  50.18kB/298.9kB
+ Pushing johnsami/dockerized-app-build-app:latest: e228adf1886f Layer already exists 
+ Pushing johnsami/dockerized-app-build-app:latest: fb5ccd0db472 Layer already exists 
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [===>                                               ]    897kB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 1b86f42fa7cd Pushing [==================================================>]  350.7kB
+ Pushing johnsami/dockerized-app-build-app:latest: 8d853c8add5d Layer already exists 
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [=========>                                         ]  2.159MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [===========>                                       ]  2.748MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [===============>                                   ]  3.573MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [=================>                                 ]  4.061MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [===================>                               ]   4.55MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 5382e3241753 Pushed 
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [=======================>                           ]  5.277MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [==========================>                        ]  6.004MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 1b86f42fa7cd Pushed 
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [=============================>                     ]  6.754MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [================================>                  ]  7.482MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [====================================>              ]  8.262MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [=======================================>           ]  9.151MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [============================================>      ]  10.17MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [================================================>  ]  11.21MB/11.47MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [==================================================>]  12.09MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushing [==================================================>]  12.25MB
+ Pushing johnsami/dockerized-app-build-app:latest: 398ad70db028 Pushed 
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/Dockerized-App-Build-pipeline
++ ansible-playbook ../Deployment/playbook.yml -i ../inventory.ini --private-key ../private_key.pem --ssh-extra-args -o StrictHostKeyChecking=no
+
+PLAY [Deployment] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [3.91.7.21]
+
+TASK [Deploy : Check if container is running from the image] *******************
+ok: [3.91.7.21]
+
+TASK [Deploy : Remove the running container if it exists] **********************
+ok: [3.91.7.21]
+
+TASK [Deploy : Render Docker Compose file] *************************************
+changed: [3.91.7.21]
+
+TASK [Deploy : Run docker-compose up handler] **********************************
+changed: [3.91.7.21]
+
+TASK [Deploy : Output the result of the new container run] *********************
+ok: [3.91.7.21] => {
+    "new_container": {
+        "changed": true,
+        "failed": false,
+        "services": {
+            "app": {
+                "app-container": {
+                    "cmd": [
+                        "python",
+                        "hello.py"
+                    ],
+                    "image": "johnsami/dockerized-app-build-app",
+                    "labels": {
+                        "com.docker.compose.config-hash": "194cbf47cfdba5dfe1613b4801e76579812cc6c80ff5c31c4128ea5c715eae1a",
+                        "com.docker.compose.container-number": "1",
+                        "com.docker.compose.oneoff": "False",
+                        "com.docker.compose.project": "default",
+                        "com.docker.compose.project.config_files": "/docker-compose.yml",
+                        "com.docker.compose.project.working_dir": "/",
+                        "com.docker.compose.service": "app",
+                        "com.docker.compose.version": "1.29.2"
+                    },
+                    "networks": {
+                        "default_app-network": {
+                            "IPAddress": "172.18.0.3",
+                            "IPPrefixLen": 16,
+                            "aliases": [
+                                "app",
+                                "33922c19fb1e"
+                            ],
+                            "globalIPv6": "",
+                            "globalIPv6PrefixLen": 0,
+                            "links": null,
+                            "macAddress": "02:42:ac:12:00:03"
+                        }
+                    },
+                    "state": {
+                        "running": true,
+                        "status": "running"
+                    }
+                }
+            },
+            "redis": {
+                "redis-container": {
+                    "cmd": [
+                        "redis-server"
+                    ],
+                    "image": "redis:6.0-alpine",
+                    "labels": {
+                        "com.docker.compose.config-hash": "700ed9221b5c2257dc87b741fd6d3e676aa876241a308b842776a3e76e0784c9",
+                        "com.docker.compose.container-number": "1",
+                        "com.docker.compose.oneoff": "False",
+                        "com.docker.compose.project": "default",
+                        "com.docker.compose.project.config_files": "/docker-compose.yml",
+                        "com.docker.compose.project.working_dir": "/",
+                        "com.docker.compose.service": "redis",
+                        "com.docker.compose.version": "1.29.2"
+                    },
+                    "networks": {
+                        "default_app-network": {
+                            "IPAddress": "172.18.0.2",
+                            "IPPrefixLen": 16,
+                            "aliases": [
+                                "redis",
+                                "ae403cc0b99c"
+                            ],
+                            "globalIPv6": "",
+                            "globalIPv6PrefixLen": 0,
+                            "links": null,
+                            "macAddress": "02:42:ac:12:00:02"
+                        }
+                    },
+                    "state": {
+                        "running": true,
+                        "status": "running"
+                    }
+                }
+            }
+        }
+    }
+}
+
+PLAY RECAP *********************************************************************
+3.91.7.21                  : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

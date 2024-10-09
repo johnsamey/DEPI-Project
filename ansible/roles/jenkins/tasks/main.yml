@@ -63,26 +63,20 @@
     name: jenkins
     state: restarted
 
-- name: Ensure the destination directory exists
-  file:
-    path: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline"
-    state: directory
-    mode: '0755'
-
 - name: Copy inventory file
   copy:
     src: inventory.ini
-    dest: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/inventory.ini"
+    dest: "/var/lib/jenkins/workspace/inventory.ini"
 
 - name: Copy private_key file 
   copy:
     src: private_key.pem
-    dest: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/private_key.pem"
+    dest: "/var/lib/jenkins/workspace/private_key.pem"
 
 - name: Copy playbook files
   copy:
     src: Deployment/
-    dest: "/var/lib/jenkins/workspace/Dockerized-App-Build-pipeline/Deployment/"
+    dest: "/var/lib/jenkins/workspace/Deployment/"
     remote_src: no
     directory_mode: '0755'
 
