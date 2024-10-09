@@ -5,6 +5,7 @@
   become: true
   roles:
     - jenkins
+    - ansible
   
 - name: Install Docker
   hosts: Docker
