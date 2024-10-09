@@ -80,8 +80,8 @@ pipeline {
             steps {
                 script {
                     sh ''' 
-                    cd $WORKSPACE
-                    ansible-playbook ../Deployment/playbook.yml -i ../inventory.ini --private-key ../private_key.pem --ssh-extra-args '-o StrictHostKeyChecking=no'
+                    cd /home
+                    ansible-playbook ./Deployment/playbook.yml -i ./inventory.ini --private-key ./private_key.pem --ssh-extra-args '-o StrictHostKeyChecking=no'
                     '''
                 }
             }

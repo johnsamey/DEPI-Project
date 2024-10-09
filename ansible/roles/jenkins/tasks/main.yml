@@ -6,6 +6,23 @@
     force_apt_get: yes
     cache_valid_time: 3600
 
+- name: Copy inventory file
+  copy:
+    src: inventory.ini
+    dest: "/home/inventory.ini"
+
+- name: Copy private_key file 
+  copy:
+    src: private_key.pem
+    dest: "/home/private_key.pem"
+
+- name: Copy playbook files
+  copy:
+    src: Deployment/
+    dest: "/home/Deployment/"
+    remote_src: no
+    directory_mode: '0755'
+
 - name: Install Java (Jenkins requires Java)
   apt:
     name: openjdk-11-jdk
@@ -62,25 +79,6 @@
   ansible.builtin.systemd:
     name: jenkins
     state: restarted
-
-- name: Copy inventory file
-  copy:
-    src: inventory.ini
-    dest: "/var/lib/jenkins/workspace/inventory.ini"
-
-- name: Copy private_key file 
-  copy:
-    src: private_key.pem
-    dest: "/var/lib/jenkins/workspace/private_key.pem"
-
-- name: Copy playbook files
-  copy:
-    src: Deployment/
-    dest: "/var/lib/jenkins/workspace/Deployment/"
-    remote_src: no
-    directory_mode: '0755'
-
-
 
 # - name: Update the system
 #   apt:
