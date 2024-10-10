@@ -1,28 +1,38 @@
 ---
 # tasks file for ./roles/Deploy
-- name: Check if container is running from the image
-  shell: "docker ps --filter 'ancestor={{ docker_image }}' --format '{{.Names}}'"
-  register: running_containers
-  changed_when: false
+# - name: Check if container is running from the image
+#   shell: "docker ps --filter 'ancestor={{ docker_image }}' --format '{{.Names}}'"
+#   register: running_containers
+#   changed_when: false
 
-- name: Remove the running container(s) if they exist
-  shell: "docker rm -f {{ item }}"
-  loop: "{{ running_containers.stdout_lines }}"
-  when: running_containers.stdout_lines | length > 0
-  register: removed_containers
-  changed_when: removed_containers.stdout != ""
+# - name: Remove the running container(s) if they exist
+#   shell: "docker rm -f {{ item }}"
+#   loop: "{{ running_containers.stdout_lines }}"
+#   when: running_containers.stdout_lines | length > 0
+#   register: removed_containers
+#   changed_when: removed_containers.stdout != ""
 
-- name: Check if the image exists
-  shell: "docker images -q {{ docker_image }}"
-  register: image_id
-  changed_when: false
+# - name: Check if the image exists
+#   shell: "docker images -q {{ docker_image }}"
+#   register: image_id
+#   changed_when: false
 
-- name: Remove the image if it exists
-  shell: "docker rmi {{ image_id.stdout }}"
-  when: image_id.stdout != ""
-  register: removed_image
-  changed_when: removed_image.stdout != ""
+# - name: Remove the image if it exists
+#   shell: "docker rmi {{ image_id.stdout }}"
+#   when: image_id.stdout != ""
+#   register: removed_image
+#   changed_when: removed_image.stdout != ""
 
+- name: Check if docker-compose file exists
+  stat:
+    path: /docker-compose.yml  # Change this to your actual path
+  register: compose_file
+
+- name: Bring down existing containers
+  community.docker.docker_compose:
+      project_src: /  # Point to the directory containing docker-compose.yml
+      state: absent  # This will stop and remove the containers
+  when: compose_file.stat.exists  # Run this only if the compose file exists
 
 - name: Render Docker Compose file
   template:
