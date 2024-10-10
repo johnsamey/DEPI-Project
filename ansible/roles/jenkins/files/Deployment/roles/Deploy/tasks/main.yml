@@ -1,15 +1,28 @@
 ---
 # tasks file for ./roles/Deploy
 - name: Check if container is running from the image
-  shell: "docker ps --filter 'ancestor={{ docker_image }}' "
-  register: running_container
+  shell: "docker ps --filter 'ancestor={{ docker_image }}' --format '{{.ID}}'"
+  register: running_containers
   changed_when: false
 
-- name: Remove the running container if it exists
-  shell: "docker rm -f {{ running_container.stdout }}"
-  when: running_container.stdout != ""
-  register: removed_container
-  changed_when: removed_container.stdout != ""
+- name: Remove the running container(s) if they exist
+  shell: "docker rm -f {{ item }}"
+  loop: "{{ running_containers.stdout_lines }}"
+  when: running_containers.stdout != ""
+  register: removed_containers
+  changed_when: removed_containers.stdout != ""
+
+- name: Check if the image exists
+  shell: "docker images -q {{ docker_image }}"
+  register: image_id
+  changed_when: false
+
+- name: Remove the image if it exists
+  shell: "docker rmi {{ image_id.stdout }}"
+  when: image_id.stdout != ""
+  register: removed_image
+  changed_when: removed_image.stdout != ""
+
 
 - name: Render Docker Compose file
   template:
