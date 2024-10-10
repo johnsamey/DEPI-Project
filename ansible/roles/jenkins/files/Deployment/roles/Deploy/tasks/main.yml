@@ -8,7 +8,7 @@
 - name: Remove the running container(s) if they exist
   shell: "docker rm -f {{ item }}"
   loop: "{{ running_containers.stdout_lines }}"
-  when: running_containers.stdout != ""
+  when: running_containers.stdout_lines | length > 0
   register: removed_containers
   changed_when: removed_containers.stdout != ""
 
