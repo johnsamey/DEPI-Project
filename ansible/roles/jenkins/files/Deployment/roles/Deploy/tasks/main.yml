@@ -1,7 +1,7 @@
 ---
 # tasks file for ./roles/Deploy
 - name: Check if container is running from the image
-  shell: "docker ps --filter 'ancestor={{ docker_image }}' --format '{{.ID}}'"
+  shell: "docker ps --filter 'ancestor={{ docker_image }}' --format '{{.Names}}'"
   register: running_containers
   changed_when: false
 
