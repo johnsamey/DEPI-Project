@@ -113,8 +113,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Team
 - Khalid Salman
 - [John Samy](https://github.com/johnsamey)
-- Mostafa Allam
-- [@Andrew Adel](https://github.com/Andrew-Adel) 
+- [Mostafa Allam](https://github.com/MainUseless) 
+- [Andrew Adel](https://github.com/Andrew-Adel) 
 - Kirolos Nagy
 
 Instructor: Eng. Ahmed Nasr
