@@ -1,4 +1,4 @@
-# 🚀 Automated Deployment Pipeline with Jenkins and Docker Project 🚀
+# 🚀 Automated Deployment Pipeline with Jenkins and Docker Project
 
 ## Objective
 Implement an automated CI/CD pipeline using Jenkins, Docker, and Ansible.
@@ -114,7 +114,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Khalid Salman
 - John Samy
 - Mostafa Allam
-- [@Andrew-Adel](https://github.com/Andrew-Adel)) 
+- [@Andrew-Adel](https://github.com/Andrew-Adel) 
 - Kirolos Nagy
 
 Instructor: Eng. Ahmed Nasr
