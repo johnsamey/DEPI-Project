@@ -1,105 +1,120 @@
-# TradeByte DevOps Challenge
+# 🚀 Automated Deployment Pipeline with Jenkins and Docker Project
 
-This repository is meant to be used as a challenge for DevOps candidates at Tradebyte.
+## Objective
+Implement an automated CI/CD pipeline using Jenkins, Docker, and Ansible.
 
-You should fork/clone this repository to use as a basis for the challenge.
+## Description
+This project aims to develop a CI/CD pipeline that automates the build, testing, and deployment of a sample application. We utilize Jenkins for continuous integration, Docker for containerization, and Ansible for configuration management. The pipeline includes automated testing and deployment to a cloud environment.
 
-## The challenge
+### Forked Repository
+This project is based on the web application forked from [DevOps Challenge](https://github.com/tradebyte/DevOps-Challenge.git).
 
-Subject of this challenge is to setup a robust, production ready and developer friendly Continuous Deployment pipeline for the given demo application.
+## Technologies Used
+- **Docker** 🐳
+- **Kubernetes** ☸️ (optional)
+- **Jenkins** ⚙️
+- **Ansible** 📦
+- **CI/CD** 🔄
+- **Cloud Deployment** ☁️
 
-The demo application can be found in this repository and the server for the deployment will be provided by us for you to work with.
+![image](https://github.com/user-attachments/assets/6a5d87c8-2eb3-429a-aa2d-1be90bf7dc14)
 
-The requirements are as follows:
+## Project Overview
+This project demonstrates the implementation of a CI/CD pipeline that leverages Jenkins, Docker, and Ansible to automate the build, test, and deployment processes of a web application. The goal is to showcase how to efficiently manage the entire lifecycle of application development using DevOps methodologies.
 
-- Choose an appropriate CI/CD tool.
-- Use a container technology of your own choosing for the demo application.
-- Setup a continuous deployment pipeline for the containerized demo application with your chosen CI/CD tool.
-  - It should contain at least a testing and a deployment stage.
-  - It should only be deployed if the testing stage, which runs the demo applications tests, is successful.
-  - It should follow the [GitHub flow](https://guides.github.com/introduction/flow/) workflow for the deployment.
-  - It should be deployed to the provided demo server.
-- Setup a development environment which mirrors the production environment as closely as possible.
-- Think about scalability and performance.
+## Tasks and Subprojects
 
-## Demo application
+### Task 1: Environment Setup
+**Description:** 
+- Set up Jenkins and Docker on local or cloud environments to create a foundational base for the CI/CD pipeline.
+- Develop a simple application (e.g., a web app) and Dockerize it to prepare for the build and deployment stages.
+- Install Ansible for configuration management.
 
-### Requirements
+### Task 2: CI Integration with Jenkins
+**Description:**
+- Create Jenkins Jobs to automate the build process for the Dockerized application.
+- Integrate a GitHub or GitLab repository for continuous integration.
+- Incorporate automated testing (e.g., unit tests) into the Jenkins pipeline.
+- Set up notifications for pipeline success or failure to keep stakeholders informed.
 
-#### System
+### Task 3: Docker Deployment
+**Description:**
+- Push Docker images to Docker Hub or a private registry to make them accessible for deployment.
+- Write Ansible playbooks to automate the deployment of the application to a cloud environment (e.g., AWS, GCP).
+- Test the deployment process with Docker and Ansible to ensure a smooth workflow.
 
-- GNU/Linux
-- `python` >= 3.7
-- `pip` >= 9.0
-- `redis` >= 5.0
+### Task 4: CI/CD Refinement & Final Testing
+**Description:**
+- Optionally configure Kubernetes to manage the deployment of Docker containers.
+- Refine Jenkins jobs for efficiency by implementing parallel stages and caching.
+- Conduct comprehensive tests of the CI/CD pipeline from code commit to deployment.
+- Complete documentation of the project, covering pipeline design, deployment processes, and any challenges faced.
 
-`>=` means any version of the package, above or equal to the specified version.
+## Pipeline Overview
+The CI/CD pipeline is structured as follows:
+1. **Code Checkout**: Jenkins checks out code from the GitHub repository.
+2. **Build & Test**: Jenkins builds Docker images and runs unit tests.
+3. **Deploy**: The Docker image is deployed using Ansible to cloud environments (e.g., AWS).
+4. **Notifications**: Team members are notified of build status via email.
 
-#### Application
+## Setup Guide
 
-- `redis-py`
-- `tornado`
+### Prerequisites
+- **Jenkins** installed on the server.
+- **Docker** installed on the server and target environments.
+- **Ansible** installed on the server for configuration management.
 
-You can find them in the `requirements.txt` file and their required version number.
-You can install them by using:
+### Installation
+1. Clone the project repository from GitHub:
+   ```bash
+   git clone https://github.com/johnsamey/DEPI-Project.git
+   ```
+2. Install Jenkins and Docker:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install jenkins docker.io
+   ```
+3. Set up the Jenkins pipeline using the `Jenkinsfile` provided in the repository.
 
-```bash
-pip install -r requirements.txt
-```
+### Pipeline Execution
+To run the CI/CD pipeline:
+1. Set up the environment variables in Jenkins:
+   - `DOCKER_HUB_CREDENTIALS`
+   - `EMAIL_RECIPIENTS`
+2. Trigger the pipeline manually or through automated GitHub webhook triggers.
 
-### :rocket: Starting the Application
+## Deployment
+The application is Dockerized and deployed to a cloud environment using Ansible. The deployment process involves:
+1. Pushing the Docker image to Docker Hub.
+2. Running the Ansible playbook to pull the image from Docker Hub and deploy it to the cloud.
 
-The application uses several environment variables.
-You can find them all and their default values in the `.env` file. They need to be avaiable at runtime. Here is an overview about the environment variables:
+## Testing
+Automated tests are integrated into the Jenkins pipeline. Unit tests are run after the build stage to ensure the application works as expected.
 
-- `ENVIRONMENT` the environment in which the application is run. Likely `PROD` for production or `DEV` for development context.
-- `HOST` the hostname on which the application is running. Locally it is `localhost`.
-- `PORT` is the port on which the application is running.
-- `REDIS_HOST` is the hostname on which redis is running. Locally it is `localhost`.
-- `REDIS_PORT` is the port on which to communicate with redis. Normally it is `6379`.
-- `REDIS_DB` which redis db should be used. Normally it is `0`.
+## Milestones
+- Week 1: Jenkins, Docker, and Ansible setup, CI/CD pipeline planning.
+- Week 2: Jenkins pipeline configured with GitHub integration and automated testing.
+- Week 3: Docker images pushed to Docker Hub, automated deployment with Ansible.
+- Week 4: CI/CD pipeline refined, optional Kubernetes integration, and final testing.
 
-Application can be found in `hello.py` file. You can start the application by using:
-
-```bash
-export $(cat .env | xargs) && python hello.py
-```
-
-Although you don't have to export the environment variables that way. :wink:
-
-### Static files
-
-- Static files are located in `static/` folder.
-- Templates are located in `template/` folder.
-
-### Executing Tests
-
-Tests can be found in `tests/test.py` file.
-You can run the tests by using:
-
-```bash
-python tests/test.py
-```
-
-## Contributing
-
-We love contributions from everyone. By participating in this project, you agree to abide by our [code of conduct](https://tradebyte.github.io/Code-of-Conduct/).
-
-We expect everyone to follow the code of conduct anywhere in `DevOps-Challenge`'s project codebases, issue trackers, chatrooms, and mailing lists.<br/>
-Thank you, [contributors]!
-
-[contributors]: https://github.com/tradebyte/DevOps-Challenge/graphs/contributors
+## Getting Started
+1. Clone the repository: `git clone https://github.com/johnsamey/DEPI-Project.git`
+2. Navigate to the project directory: `cd DEPI-Project`
+3. Follow the setup instructions in the [INSTALL.md](INSTALL.md) file to install dependencies and configure the environment.
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Copyright (c) 2019 by the Tradebyte Software GmbH.<br/>
-`DevOps-Challenge` is free software, and may be redistributed under the terms specified in the [LICENSE] file.
+## Acknowledgements
+- [Jenkins Documentation](https://www.jenkins.io/doc/)
+- [Docker Documentation](https://docs.docker.com/)
+- [Ansible Documentation](https://docs.ansible.com/ansible/latest/index.html)
 
-[license]: /LICENSE
+## Team
+- Khalid Salman
+- [John Samy](https://github.com/johnsamey)
+- [Mostafa Allam](https://github.com/MainUseless) 
+- [Andrew Adel](https://github.com/Andrew-Adel) 
+- Kirolos Nagy
 
-## About
-
-`DevOps-Challenge` is maintained and funded by the Tradebyte Software GmbH. <br/>
-The names and images for `DevOps-Challenge` are trademarks of the Tradebyte Software GmbH.
-
-We love free software!
+Instructor: Eng. Ahmed Nasr
